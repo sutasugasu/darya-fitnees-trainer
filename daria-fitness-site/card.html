@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4A342A" />
+  <meta name="description" content="Зубак Дарья — фитнес-тренер в клубе Arkfit, Чита. Персональные тренировки, программы тренировок и план питания." />
+  <title>Зубак Дарья — персональный фитнес-тренер</title>
+  <style>
+    :root {
+      --linen: #F5F1EA;
+      --khaki: #D7C9B8;
+      --camel: #B2967D;
+      --cocoa: #7D5A44;
+      --espresso: #4A342A;
+      --paper: #FFFCF7;
+      --muted: #76675D;
+      --line: rgba(74, 52, 42, .14);
+      --shadow: 0 18px 55px rgba(74, 52, 42, .10);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      color: var(--espresso);
+      background: var(--linen);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--camel); outline-offset: 4px; }
+    .container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(245, 241, 234, .88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(74, 52, 42, .08);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 15px; background: var(--espresso); color: var(--linen); }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; line-height: 1.2; }
+    .nav-links { display: flex; align-items: center; gap: 25px; font-size: 13px; font-weight: 650; color: #67564B; }
+    .nav-links a:hover { color: var(--cocoa); }
+    .nav-cta, .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border: 0; cursor: pointer; border-radius: 999px; font: inherit; font-weight: 750; transition: transform .22s ease, box-shadow .22s ease, background .22s ease; }
+    .nav-cta { padding: 12px 18px; background: var(--espresso); color: var(--linen); font-size: 13px; white-space: nowrap; }
+    .nav-cta:hover, .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(74,52,42,.18); }
+    .hero { padding: 56px 0 66px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 46px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; font-weight: 850; color: var(--cocoa); }
+    .eyebrow:before { content: ""; width: 26px; height: 1px; background: var(--camel); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 650px; margin: 16px 0 20px; font-size: clamp(42px, 6vw, 75px); line-height: .99; letter-spacing: -.065em; font-weight: 850; }
+    h1 em { color: var(--cocoa); font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+    .hero-copy { max-width: 520px; color: var(--muted); font-size: 17px; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+    .btn { padding: 15px 22px; font-size: 14px; }
+    .btn-primary { background: var(--espresso); color: white; box-shadow: 0 8px 18px rgba(74,52,42,.10); }
+    .btn-secondary { border: 1px solid var(--line); background: rgba(255,252,247,.58); }
+    .btn-secondary:hover { background: white; transform: translateY(-2px); }
+    .hero-note { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; }
+    .avatar-stack { display: flex; }
+    .avatar-stack span { width: 28px; height: 28px; margin-left: -6px; border: 2px solid var(--linen); border-radius: 50%; background: var(--khaki); display: grid; place-items: center; font-size: 11px; color: var(--espresso); }
+    .avatar-stack span:first-child { margin-left: 0; background: var(--camel); }
+    .hero-art { min-height: 495px; position: relative; display: grid; place-items: center; }
+    .art-blob { position: absolute; width: min(100%, 465px); aspect-ratio: 1; border-radius: 47% 53% 48% 52% / 54% 44% 56% 46%; background: var(--khaki); transform: rotate(-8deg); animation: float 8s ease-in-out infinite; }
+    .art-ring { position: absolute; width: 86%; aspect-ratio: 1; border: 1px solid rgba(74,52,42,.20); border-radius: 50%; transform: rotate(19deg); }
+    .portrait-card { position: relative; width: min(74%, 320px); height: 390px; border-radius: 170px 170px 28px 28px; overflow: hidden; display: flex; align-items: end; justify-content: center; background: linear-gradient(150deg, #C1A58D 0%, #A17C62 50%, #7D5A44 100%); box-shadow: var(--shadow); }
+    .portrait-card:before { content: ""; position: absolute; inset: 16px; border: 1px solid rgba(255,252,247,.55); border-radius: 160px 160px 20px 20px; z-index: 2; }
+    .portrait-photo { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .portrait-card:before { z-index: 3; pointer-events: none; }
+    .portrait-silhouette { position: relative; width: 78%; height: 89%; z-index: 1; }
+    .portrait-silhouette .head { position: absolute; width: 34%; height: 22%; left: 33%; top: 10%; background: #E9CDB4; border-radius: 48% 48% 45% 45%; z-index: 3; }
+    .portrait-silhouette .hair { position: absolute; width: 43%; height: 28%; left: 28.5%; top: 7%; background: #4A342A; border-radius: 48% 48% 32% 34%; z-index: 4; clip-path: polygon(7% 0, 93% 0, 100% 69%, 85% 100%, 78% 48%, 26% 47%, 17% 100%, 0 69%); }
+    .portrait-silhouette .neck { position: absolute; width: 15%; height: 14%; left: 42.5%; top: 28%; background: #E9CDB4; }
+    .portrait-silhouette .body { position: absolute; width: 82%; height: 54%; left: 9%; bottom: -2%; background: #F5F1EA; border-radius: 42% 42% 8% 8%; clip-path: polygon(27% 0, 73% 0, 100% 32%, 90% 100%, 10% 100%, 0 32%); }
+    .portrait-silhouette .top { position: absolute; width: 48%; height: 51%; left: 26%; bottom: 0; z-index: 2; background: #4A342A; border-radius: 35% 35% 4% 4%; clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%); }
+    .art-sticker { position: absolute; display: flex; align-items: center; gap: 10px; background: var(--paper); border: 1px solid rgba(74,52,42,.08); border-radius: 18px; padding: 13px 16px; box-shadow: var(--shadow); z-index: 5; animation: float 6s ease-in-out infinite; }
+    .art-sticker strong { display: block; font-size: 13px; line-height: 1.2; }
+    .art-sticker small { display: block; font-size: 10px; margin-top: 4px; color: var(--muted); }
+    .sticker-icon { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; border-radius: 13px; color: var(--espresso); background: var(--linen); }
+    .sticker-top { left: 0; top: 90px; }
+    .sticker-bottom { right: -8px; bottom: 70px; animation-delay: -2s; }
+    .hero-number { position: absolute; top: 24px; right: 12px; color: rgba(74,52,42,.5); font: italic 16px Georgia, serif; }
+    .strip { background: var(--espresso); color: var(--linen); padding: 17px 0; }
+    .strip-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .strip-item { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .02em; }
+    .strip-item svg { color: var(--camel); flex-shrink: 0; }
+    section { padding: 88px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+    .section-head h2 { margin: 10px 0 0; font-size: clamp(32px, 4vw, 49px); line-height: 1.05; letter-spacing: -.05em; }
+    .section-head p { max-width: 390px; margin-bottom: 3px; color: var(--muted); font-size: 14px; }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .service-card { position: relative; display: flex; flex-direction: column; min-height: 292px; padding: 24px 22px; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid rgba(74,52,42,.07); transition: transform .25s ease, box-shadow .25s ease; }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .service-card.featured { background: var(--espresso); color: var(--linen); }
+    .service-card .icon-box { width: 45px; height: 45px; display: grid; place-items: center; border-radius: 15px; margin-bottom: 28px; background: var(--linen); color: var(--cocoa); }
+    .service-card.featured .icon-box { background: rgba(245,241,234,.13); color: var(--khaki); }
+    .service-card h3 { font-size: 18px; letter-spacing: -.025em; line-height: 1.2; margin-bottom: 10px; }
+    .service-card p { color: var(--muted); font-size: 12px; margin-bottom: 22px; }
+    .service-card.featured p { color: rgba(245,241,234,.68); }
+    /* Персональная тренировка — Khaki */
+    .service-card.eating-card {
+        background: #D7C9B8;
+        color: #4A342A;
+        border-color: #B2967D;
+    }
+
+    .service-card.eating-card .icon-box {
+        background: #F5F1EA;
+        color: #7D5A44;
+    }
+
+    .service-card.eating-card p {
+        color: #5D493D;
+    }
+
+    .price { font-size: 24px; letter-spacing: -.04em; font-weight: 850; margin-top: auto; }
+    .price small { font-size: 11px; font-weight: 600; letter-spacing: 0; opacity: .7; }
+    .price-note { margin-top: 20px; padding: 14px 18px; border-radius: 14px; background: rgba(215,201,184,.34); color: #6F5B4A; font-size: 11px; }
+    .about { background: #E9E0D4; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 65px; align-items: center; }
+    .about-visual { min-height: 395px; border-radius: var(--radius-xl); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; background: var(--camel); color: white; position: relative; overflow: hidden; }
+    .about-visual:before, .about-visual:after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; width: 360px; height: 360px; right: -110px; top: -60px; }
+    .about-visual:after { width: 250px; height: 250px; top: 20px; right: -55px; }
+    .about-mark { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: start; }
+    .about-monogram { position: relative; z-index: 1; font: 500 clamp(76px, 10vw, 132px)/.85 Georgia, serif; letter-spacing: -.1em; }
+    .about-caption { position: relative; z-index: 1; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+    .about-caption strong { display: block; font-size: 20px; }
+    .about-caption span { font-size: 11px; opacity: .78; }
+    .about-copy h2 { font-size: clamp(34px, 4vw, 50px); line-height: 1.04; letter-spacing: -.05em; margin: 12px 0 18px; }
+    .about-copy > p { color: #6F5B4A; font-size: 14px; }
+    .check-list { list-style: none; display: grid; gap: 13px; padding: 0; margin: 24px 0 30px; }
+    .check-list li { display: flex; gap: 11px; align-items: start; font-size: 13px; font-weight: 650; }
+    .check { width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: var(--espresso); color: white; font-size: 12px; }
+    .nutrition { background: var(--espresso); color: var(--linen); }
+    .nutrition .section-head p { color: rgba(245,241,234,.65); }
+    .nutrition .eyebrow { color: var(--khaki); }
+    .nutrition .eyebrow:before { background: var(--camel); }
+    .nutrition-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .nutrition-item { padding: 24px; border-radius: var(--radius-lg); background: rgba(245,241,234,.07); border: 1px solid rgba(245,241,234,.13); }
+    .nutrition-item span { display: block; margin-bottom: 24px; color: var(--camel); font: italic 28px Georgia, serif; }
+    .nutrition-item h3 { margin-bottom: 8px; font-size: 17px; }
+    .nutrition-item p { margin: 0; color: rgba(245,241,234,.65); font-size: 12px; }
+    .nutrition-bottom { margin-top: 20px; border-radius: 18px; padding: 22px 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: var(--khaki); color: var(--espresso); }
+    .nutrition-bottom h3 { margin: 0 0 3px; font-size: 17px; }
+    .nutrition-bottom p { margin: 0; font-size: 12px; color: #6F5B4A; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .review-card { min-height: 208px; border-radius: var(--radius-lg); background: var(--paper); border: 1px solid rgba(74,52,42,.07); padding: 24px; display: flex; flex-direction: column; }
+    .stars { display: flex; gap: 3px; color: var(--camel); font-size: 15px; letter-spacing: 2px; }
+    .review-placeholder { flex: 1; display: flex; align-items: center; padding: 16px 0; color: var(--muted); font-size: 13px; }
+    .review-person { display: flex; align-items: center; gap: 11px; border-top: 1px solid var(--line); padding-top: 15px; }
+    .review-avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--khaki); font: italic 17px Georgia, serif; }
+    .review-person strong { display: block; font-size: 12px; }
+    .review-person small { display: block; color: var(--muted); font-size: 10px; }
+    .contact { padding-top: 22px; }
+    .contact-panel { border-radius: 32px; padding: clamp(28px, 5vw, 56px); background: var(--khaki); display: grid; grid-template-columns: 1fr .8fr; gap: 40px; align-items: center; overflow: hidden; position: relative; }
+    .contact-panel:after { content: "D"; position: absolute; right: -10px; bottom: -105px; color: rgba(74,52,42,.07); font: 400 330px/1 Georgia, serif; pointer-events: none; }
+    .contact-panel h2 { position: relative; z-index: 1; font-size: clamp(35px, 4vw, 54px); line-height: 1.02; letter-spacing: -.055em; margin: 12px 0 14px; }
+    .contact-panel p { position: relative; z-index: 1; max-width: 450px; color: #6F5B4A; font-size: 14px; }
+    .contact-list { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .social-link { display: flex; align-items: center; gap: 10px; border-radius: 16px; background: var(--paper); padding: 14px; transition: transform .2s ease, box-shadow .2s ease; }
+    .social-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(74,52,42,.09); }
+    .social-icon { width: 36px; height: 36px; flex-shrink: 0; display: grid; place-items: center; border-radius: 12px; background: var(--linen); font-weight: 850; color: var(--cocoa); }
+    .social-link strong { display: block; font-size: 12px; }
+    .social-link small { display: block; color: var(--muted); font-size: 10px; }
+    .social-note { position: relative; z-index: 1; grid-column: 1 / -1; margin: 6px 0 0; color: #6F5B4A; font-size: 11px; }
+    .location { display: flex; gap: 12px; align-items: start; margin-top: 24px; color: var(--muted); font-size: 12px; }
+    .location svg { flex-shrink: 0; color: var(--cocoa); }
+    footer { padding: 26px 0 34px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    .footer-inner strong { color: var(--espresso); }
+    .footer-links { display: flex; gap: 15px; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 950px) {
+      .nav-links { gap: 14px; }
+      .hero-grid { gap: 18px; }
+      .hero-art { min-height: 420px; }
+      .portrait-card { height: 335px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 35px; }
+      .contact-panel { grid-template-columns: 1fr; gap: 24px; }
+      .contact-list { max-width: 620px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 28px, 520px); }
+      .nav { min-height: 66px; }
+      .brand small { display: none; }
+      .brand-mark { width: 38px; height: 38px; }
+      .nav-links { display: none; }
+      .nav-cta { padding: 11px 15px; font-size: 12px; }
+      .hero { padding: 44px 0 35px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 10px; }
+      h1 { font-size: clamp(43px, 12vw, 64px); }
+      .hero-copy { font-size: 15px; }
+      .hero-art { min-height: 390px; margin: 0 -8px; }
+      .art-blob { width: 320px; }
+      .art-ring { width: 300px; }
+      .portrait-card { width: 240px; height: 325px; }
+      .sticker-top { left: 2px; top: 48px; }
+      .sticker-bottom { right: -1px; bottom: 37px; }
+      .art-sticker { padding: 10px 12px; }
+      .sticker-icon { width: 32px; height: 32px; }
+      .hero-number { top: 5px; right: 14px; }
+      .strip-inner { justify-content: flex-start; gap: 15px 25px; }
+      .strip-item { width: calc(50% - 14px); font-size: 11px; }
+      section { padding: 64px 0; }
+      .section-head { display: block; margin-bottom: 25px; }
+      .section-head p { margin-top: 13px; }
+      .services-grid { gap: 10px; }
+      .service-card { padding: 18px 16px; min-height: 270px; }
+      .service-card .icon-box { margin-bottom: 20px; }
+      .service-card h3 { font-size: 16px; }
+      .price { font-size: 21px; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-visual { min-height: 310px; }
+      .nutrition-grid { grid-template-columns: 1fr; }
+      .nutrition-item { padding: 20px; }
+      .nutrition-item span { margin-bottom: 12px; }
+      .nutrition-bottom { align-items: start; flex-direction: column; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .review-card { min-height: 185px; }
+      .contact-panel { border-radius: 24px; padding: 28px 20px; }
+      .contact-list { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .social-link { padding: 10px; gap: 8px; }
+      .social-icon { width: 32px; height: 32px; }
+      .social-link strong { font-size: 11px; }
+      .social-link small { font-size: 9px; }
+      .footer-inner { flex-direction: column; align-items: start; }
+      /* Карточка с фотографией Дарьи */
+      .photo-card {
+          isolation: isolate;
+          background: #B2967D;
+      }
+
+      /* Фотография на всю карточку */
+      .photo-card .about-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 30%;
+          z-index: 0;
+      }
+
+      /* Мягкое затемнение сверху и снизу */
+      .photo-card .about-photo-shade {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(
+              180deg,
+              rgba(36, 25, 19, 0.35) 0%,
+              rgba(36, 25, 19, 0.02) 40%,
+              rgba(36, 25, 19, 0.72) 100%
+          );
+      }
+
+      /* Декоративные круги поверх фотографии */
+      .photo-card::before,
+      .photo-card::after {
+          z-index: 2;
+          pointer-events: none;
+      }
+
+      /* Подписи поверх всех элементов */
+      .photo-card .about-mark,
+      .photo-card .about-caption {
+          position: relative;
+          z-index: 3;
+          text-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Перед публикацией замените ссылки на свои в блоке «Контакты» внизу файла. -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="На главную">
+        <span class="brand-mark" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M4 9v6M7 6v12M17 6v12M20 9v6M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span>Дарья Зубак<small>Персональный тренер</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Главная навигация">
+        <a href="#services">Услуги</a><a href="#about">Обо мне</a><a href="#reviews">Отзывы</a>
+      </nav>
+      <a class="nav-cta" href="#contacts">Записаться <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text reveal">
+          <div class="eyebrow">Тренировки с заботой о себе</div>
+          <h1>Сильнее с каждым <em>днём.</em></h1>
+          <p class="hero-copy">Привет! Я Дарья — фитнес-тренер в Arkfit. Помогаю выстроить тренировки под твои цели, уровень подготовки и реальный ритм жизни.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacts">Записаться на тренировку <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#services">Посмотреть услуги <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-note"><div class="avatar-stack" aria-hidden="true"><span>✦</span><span>♡</span><span>↗</span></div><span>Персональный подход · Поддержка · Система</span></div>
+        </div>
+        <div class="hero-art reveal" aria-label="Фотография фитнес-тренера Дарьи">
+          <div class="art-blob"></div><div class="art-ring"></div><div class="hero-number">FITNESS / 01</div>
+          <div class="portrait-card">
+            <!-- ФОТО ДАРЬИ: положите файл darya.jpg рядом с index.html. При другом имени поменяйте значение src. -->
+            <img class="portrait-photo" src="darya.jpg" alt="Зубак Дарья — фитнес-тренер" onerror="this.hidden = true">
+            <div class="portrait-silhouette" aria-hidden="true"><div class="body"></div><div class="neck"></div><div class="head"></div><div class="hair"></div><div class="top"></div></div>
+          </div>
+          <div class="art-sticker sticker-top"><span class="sticker-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.1L20 9l-4 4 .9 5.7L12 16l-4.9 2.7L8 13 4 9l5.6-.9L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span><strong>Твой темп</strong><small>Без гонки за идеалом</small></span></div>
+          <div class="art-sticker sticker-bottom"><span class="sticker-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 13.5 9 18l11-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>План действий</strong><small>Понятно и по шагам</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip"><div class="container strip-inner">
+      <div class="strip-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 9v6M7 6v12M17 6v12M20 9v6M7 12h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg> Персональные тренировки</div>
+      <div class="strip-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z" stroke="currentColor" stroke-width="1.7"/></svg> Поддержка без осуждения</div>
+      <div class="strip-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg> Прогресс в своём темпе</div>
+      <div class="strip-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V10l8-6 8 6v10h-6v-6h-4v6H4Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> Arkfit · Чита</div>
+    </div></div>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Форматы работы</div><h2>Выбирай свой<br>формат</h2></div><p>Начнём с твоих целей и опыта, а затем подберём формат, который удобно встроить в жизнь.</p></div>
+        <div class="services-grid">
+          <article class="service-card featured reveal"><div class="icon-box"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M4 9v6M7 6v12M17 6v12M20 9v6M7 12h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Персональная тренировка</h3><p>Индивидуальное внимание, разбор техники и нагрузка под твой уровень подготовки.</p><div class="price">1 300 ₽ <small>/ занятие</small></div></article>
+          <article class="service-card reveal"><div class="icon-box"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="9" r="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M14 15.5a4 4 0 0 1 6.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Дабл</h3><p>Мини-группа от 2 человек — тренируйтесь вместе и поддерживайте друг друга.</p><div class="price">900 ₽ <small>/ человек за занятие</small></div></article>
+          <article class="service-card reveal"><div class="icon-box"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="8" r="2.3" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="6" r="2.3" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="8" r="2.3" stroke="currentColor" stroke-width="1.7"/><path d="M2.5 18a3.5 3.5 0 0 1 7 0M8 16a4 4 0 0 1 8 0M14.5 18a3.5 3.5 0 0 1 7 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Трипл</h3><p>Тренировки в небольшой группе из 2–4 человек с поддержкой тренера.</p><div class="price">700 ₽ <small>/ человек за занятие</small></div></article>
+          <article class="service-card eating-card reveal"><div class="icon-box"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3c-2.5 4-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-3.5-7-6-11Z" stroke="currentColor" stroke-width="1.7"/><path d="M9 15c.4 1.5 1.4 2.3 3 2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>План питания</h3><p>Отдельно — 3 000 ₽. При оплате тренировок план питания идёт в подарок.</p><div class="price">3 000 ₽ <small>/ без тренировок</small></div></article>
+        </div>
+        <div class="price-note">Групповые цены указаны за одного человека за занятие. При оплате тренировок план питания — в подарок.</div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-visual photo-card reveal">
+          <!-- ФОТОГРАФИЯ ДАРЬИ -->
+          <img
+            class="about-photo"
+            src="darya.jpg"
+            alt="Зубак Дарья — фитнес-тренер"
+            onerror="this.style.display='none'"
+          >
+
+          <!-- Затемнение для читаемости текста -->
+          <div class="about-photo-shade" aria-hidden="true"></div>
+
+          <!-- Верхняя подпись -->
+          <div class="about-mark">
+            <span style="font-size:11px; letter-spacing:.17em; font-weight:800">
+              COACH · ARKFIT
+            </span>
+            <span style="font:italic 18px Georgia,serif">
+              01 / 03
+            </span>
+          </div>
+
+          <!-- Имя и город -->
+          <div class="about-caption">
+            <div>
+              <strong>Зубак Дарья</strong>
+              <span>Фитнес-тренер</span>
+            </div>
+            <span>Чита, Россия</span>
+          </div>
+
+        </div>
+        <div class="about-copy reveal"><div class="eyebrow">Немного обо мне</div><h2>Тренировки —<br>не наказание.</h2><p>Я за осознанный фитнес: без сравнений с другими и ожидания мгновенных изменений. Важно научиться тренироваться безопасно, понимать своё тело и радоваться тому, что получается.</p><ul class="check-list"><li><span class="check">✓</span><span>Учитываем твой уровень и тренировочный опыт</span></li><li><span class="check">✓</span><span>Разбираем технику и постепенно усложняем нагрузку</span></li><li><span class="check">✓</span><span>Составляем понятный план и отслеживаем самочувствие</span></li><li><span class="check">✓</span><span>Работаем в комфортном темпе и без стыда за вопросы</span></li></ul><a class="btn btn-primary" href="#contacts">Давай знакомиться <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="nutrition" id="nutrition">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Питание без крайностей</div><h2>Больше баланса.<br>Меньше запретов.</h2></div><p>План питания — это ориентир для повседневных привычек, а не жёсткий список запретов или замена консультации медицинского специалиста.</p></div>
+        <div class="nutrition-grid">
+          <article class="nutrition-item reveal"><span>01</span><h3>Под твой ритм</h3><p>Рацион и идеи приёмов пищи, которые можно адаптировать под рабочий и учебный день.</p></article>
+          <article class="nutrition-item reveal"><span>02</span><h3>Гибкий подход</h3><p>Без деления еды на «хорошую» и «плохую» и без обещаний быстрых результатов.</p></article>
+          <article class="nutrition-item reveal"><span>03</span><h3>Привычки надолго</h3><p>Фокус на регулярности, разнообразии и самочувствии, а не на идеальности.</p></article>
+        </div>
+        <div class="nutrition-bottom reveal"><div><h3>План питания — 3 000 ₽</h3><p>Если оплачиваешь тренировки, план питания получаешь в подарок.</p></div><a class="btn btn-primary" href="#contacts">Записаться <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">Ваш опыт важен</div><h2>Отзывы клиентов</h2></div><p>Добавь сюда реальные отзывы с разрешения клиентов — текст, скриншоты или ссылки на публикации.</p></div>
+        <div class="reviews-grid">
+          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Здесь будет отзыв о тренировках, атмосфере и работе с техникой.</div><div class="review-person"><div class="review-avatar">А</div><div><strong>Имя клиента</strong><small>Персональные тренировки</small></div></div></article>
+          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Здесь можно рассказать, что помогло клиенту чувствовать себя увереннее в зале.</div><div class="review-person"><div class="review-avatar">М</div><div><strong>Имя клиента</strong><small>Персональные тренировки</small></div></div></article>
+          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Добавь реальный отзыв о программе, удобном графике или поддержке тренера.</div><div class="review-person"><div class="review-avatar">Е</div><div><strong>Имя клиента</strong><small>Программа тренировок</small></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacts">
+      <div class="container"><div class="contact-panel reveal">
+        <div><div class="eyebrow">Начнём с разговора</div><h2>Готова сделать<br>первый шаг?</h2><p>Напиши мне в удобный мессенджер — обсудим цели, опыт и подходящее время для тренировки.</p><div class="location"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg><span><strong style="color:var(--espresso)">Фитнес-клуб Arkfit</strong><br>г. Чита, ул. Чайковского, 27<br><a href="https://www.google.com/maps/search/?api=1&query=Чита%2C%20улица%20Чайковского%2C%2027" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Открыть на карте ↗</a></span></div></div>
+        <div class="contact-list" aria-label="Социальные сети и мессенджеры">
+          <a class="social-link" href="#" data-social="instagram" target="_blank" rel="noopener noreferrer"><span class="social-icon">◎</span><span><strong>Instagram</strong><small>Написать для записи</small></span></a>
+          <a class="social-link" href="#" data-social="telegram" target="_blank" rel="noopener noreferrer"><span class="social-icon">➤</span><span><strong>Telegram</strong><small>Написать для записи</small></span></a>
+          <a class="social-link" href="#" data-social="vk" target="_blank" rel="noopener noreferrer"><span class="social-icon">VK</span><span><strong>ВКонтакте</strong><small>Написать для записи</small></span></a>
+          <a class="social-link" href="#" data-social="max" target="_blank" rel="noopener noreferrer"><span class="social-icon">м</span><span><strong>MAX</strong><small>Написать для записи</small></span></a>
+          <a class="social-link" href="#" data-social="whatsapp" target="_blank" rel="noopener noreferrer"><span class="social-icon">WA</span><span><strong>WhatsApp</strong><small>Написать для записи</small></span></a>
+        </div>
+        <!-- <p class="social-note" id="message-note" role="status" aria-live="polite">В Telegram, WhatsApp и MAX текст подставляется автоматически. В Instagram и VK готовое сообщение копируется — вставь его в чат и отправь.</p> -->
+      </div></div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><div>© <span id="year">2026</span> <strong>Зубак Дарья</strong> · Фитнес-тренер</div><div class="footer-links"><a href="#top">Наверх ↑</a><a href="#contacts">Контакты</a></div></div></footer>
+
+  <script>
+    // ПЕРЕД ПУБЛИКАЦИЕЙ: замените значения на реальные аккаунты и телефон Дарьи.
+    // Instagram / Telegram / VK / MAX — без символа @. WhatsApp — международный номер только цифрами, например 79991234567.
+    const socialAccounts = {
+      instagram: "YOUR_INSTAGRAM_USERNAME",
+      telegram: "YOUR_TELEGRAM_USERNAME",
+      vk: "YOUR_VK_USERNAME",
+      max: "YOUR_MAX_USERNAME",
+      whatsapp: "7XXXXXXXXXX"
+    };
+    const inquiryMessage = "Здравствуйте, Дарья! Хочу записаться на тренировку. Подскажите, пожалуйста, свободные дни и время.";
+    const encodedMessage = encodeURIComponent(inquiryMessage);
+    const socialUrls = {
+      instagram: `https://ig.me/m/${socialAccounts.instagram}`,
+      telegram: `https://t.me/${socialAccounts.telegram}?text=${encodedMessage}`,
+      vk: `https://vk.me/${socialAccounts.vk}`,
+      max: `https://max.ru/:share?text=${encodedMessage}`,
+      whatsapp: `https://wa.me/${socialAccounts.whatsapp}?text=${encodedMessage}`
+    };
+    document.querySelectorAll('[data-social]').forEach((link) => {
+      link.href = socialUrls[link.dataset.social];
+      link.addEventListener('click', async () => {
+        const note = document.getElementById('message-note');
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(inquiryMessage);
+          } else {
+            const field = document.createElement('textarea');
+            field.value = inquiryMessage;
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.appendChild(field);
+            field.select();
+            const copied = document.execCommand('copy');
+            field.remove();
+            if (!copied) throw new Error('Clipboard copy was blocked');
+          }
+          if (link.dataset.social === 'instagram' || link.dataset.social === 'vk') {
+            note.textContent = 'Готовое сообщение скопировано. Вставь его в открывшийся чат и нажми «Отправить».';
+          } else if (link.dataset.social === 'max') {
+            note.textContent = 'Сообщение готово и скопировано. В MAX выбери чат Дарьи, проверь текст и отправь его.';
+          } else {
+            note.textContent = 'Готовое сообщение скопировано и также подставится в поле сообщения. Проверь текст и нажми «Отправить».';
+          }
+        } catch (error) {
+          note.textContent = 'Текст для обращения: ' + inquiryMessage;
+        }
+      });
+    });
+
+    // Плавное появление секций по мере прокрутки. Без библиотек и внешних запросов.
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach((item) => observer.observe(item));
+    } else {
+      items.forEach((item) => item.classList.add('visible'));
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
