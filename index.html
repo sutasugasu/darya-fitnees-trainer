@@ -177,6 +177,52 @@
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+    /* Карточка «Обо мне» — единый стиль на ПК и телефоне */
+    .photo-card {
+        isolation: isolate;
+        background: #B2967D;
+    }
+
+    /* Вертикальная фотография внутри карточки */
+    .photo-card .about-photo {
+        position: relative;
+        inset: auto;
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        object-position: center 30%;
+        z-index: 1;
+    }
+
+    /* Убираем затемнение поверх фотографии */
+    .photo-card .about-photo-shade {
+        display: none;
+    }
+
+    /* Декоративные окружности поверх фото */
+    .photo-card::before,
+    .photo-card::after {
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    /* Подписи располагаются под фотографией */
+    .photo-card .about-mark,
+    .photo-card .about-caption {
+        position: relative;
+        z-index: 3;
+        text-shadow: none;
+    }
+
+    .photo-card .about-mark {
+        margin-top: 0;
+    }
+
+    .photo-card .about-caption {
+        margin-top: 4px;
+    }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
     @media (max-width: 950px) {
       .nav-links { gap: 14px; }
@@ -233,13 +279,13 @@
       .social-link strong { font-size: 11px; }
       .social-link small { font-size: 9px; }
       .footer-inner { flex-direction: column; align-items: start; }
-      /* Карточка с фотографией Дарьи */
+      /* Карточка с фотографией Дарьи
       .photo-card {
           isolation: isolate;
           background: #B2967D;
       }
 
-      /* Фотография на всю карточку */
+      Фотография на всю карточку
       .photo-card .about-photo {
           position: absolute;
           inset: 0;
@@ -250,7 +296,7 @@
           z-index: 0;
       }
 
-      /* Мягкое затемнение сверху и снизу */
+      Мягкое затемнение сверху и снизу
       .photo-card .about-photo-shade {
           position: absolute;
           inset: 0;
@@ -263,20 +309,159 @@
           );
       }
 
-      /* Декоративные круги поверх фотографии */
+      Декоративные круги поверх фотографии
       .photo-card::before,
       .photo-card::after {
           z-index: 2;
           pointer-events: none;
       }
 
-      /* Подписи поверх всех элементов */
+      Подписи поверх всех элементов
       .photo-card .about-mark,
       .photo-card .about-caption {
           position: relative;
           z-index: 3;
           text-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);
-      }
+      } */
+    }
+
+    /* Кнопка «Открыть отзыв» */
+    .review-open-btn {
+        margin-top: 18px;
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid rgba(74, 52, 42, 0.12);
+        border-radius: 100px;
+        background: var(--khaki);
+        color: var(--espresso);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 750;
+        cursor: pointer;
+        transition: background .2s ease,
+                    color .2s ease,
+                    transform .2s ease;
+    }
+
+    .review-open-btn:hover {
+        background: var(--cocoa);
+        color: var(--linen);
+        transform: translateY(-2px);
+    }
+
+    .review-open-btn:focus-visible {
+        outline: 3px solid var(--camel);
+        outline-offset: 3px;
+    }
+
+
+    /* Затемнение фона */
+    .review-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        padding: 16px;
+    }
+
+    .review-modal[hidden] {
+        display: none !important;
+    }
+
+    .review-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        background: rgba(35, 25, 19, 0.68);
+        backdrop-filter: blur(4px);
+        cursor: pointer;
+    }
+
+
+    /* Само всплывающее окно */
+    .review-modal-dialog {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 480px);
+        max-height: 88vh;
+        overflow: auto;
+        padding: 16px;
+        border-radius: 22px;
+        background: var(--paper);
+        box-shadow: 0 24px 80px rgba(35, 25, 19, 0.25);
+    }
+
+    .review-modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .review-modal-head h3 {
+        margin: 0;
+        color: var(--espresso);
+        font-size: 15px;
+    }
+
+    .review-modal-close {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border: 0;
+        border-radius: 50%;
+        background: var(--khaki);
+        color: var(--espresso);
+        font-size: 25px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .review-modal-image {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: calc(88vh - 95px);
+        object-fit: contain;
+        margin: 0 auto;
+        border-radius: 10px;
+        background: #FFFFFF;
+    }
+
+    @media (max-width: 480px) {
+        .review-modal-dialog {
+            padding: 12px;
+            border-radius: 18px;
+        }
+
+        .review-modal-image {
+            max-height: calc(88vh - 85px);
+        }
+    }
+
+        .review-avatar {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        line-height: 1;
+    }
+
+        .review-avatar svg {
+        display: block;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
     }
   </style>
 </head>
@@ -393,11 +578,153 @@
 
     <section id="reviews">
       <div class="container">
-        <div class="section-head reveal"><div><div class="eyebrow">Ваш опыт важен</div><h2>Отзывы клиентов</h2></div><p>Добавь сюда реальные отзывы с разрешения клиентов — текст, скриншоты или ссылки на публикации.</p></div>
+        <div class="section-head reveal"><div><div class="eyebrow">Ваш опыт важен</div><h2>Отзывы клиентов</h2></div><p></p></div>
         <div class="reviews-grid">
-          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Здесь будет отзыв о тренировках, атмосфере и работе с техникой.</div><div class="review-person"><div class="review-avatar">А</div><div><strong>Имя клиента</strong><small>Персональные тренировки</small></div></div></article>
-          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Здесь можно рассказать, что помогло клиенту чувствовать себя увереннее в зале.</div><div class="review-person"><div class="review-avatar">М</div><div><strong>Имя клиента</strong><small>Персональные тренировки</small></div></div></article>
-          <article class="review-card reveal"><div class="stars" aria-label="Шаблон отзыва" style="font-size:10px;letter-spacing:1.5px;font-weight:800">✦ ШАБЛОН ОТЗЫВА</div><div class="review-placeholder">Добавь реальный отзыв о программе, удобном графике или поддержке тренера.</div><div class="review-person"><div class="review-avatar">Е</div><div><strong>Имя клиента</strong><small>Программа тренировок</small></div></div></article>
+          <!-- ОТЗЫВ 1: ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ -->
+          <article class="review-card reveal">
+            <div class="stars"
+                style="font-size:10px; letter-spacing:1.5px; font-weight:800">
+              ✦ ОТЗЫВ КЛИЕНТА
+            </div>
+
+            <div class="review-placeholder">
+              Спасибо тебе большое за наши тренировки, с тобой очень 
+              комфортно работать, всегда следишь за моей техникой и 
+              радуешься результатам 🥺 <br>
+              С тобой всегда можно посмеяться и поговорить по душам, 
+              после тренировки с тобой я всегда ухожу с хорошим 
+              настроением &#129303; <br>
+              Хочу отметить то что ты всегда даешь хороший и рабочий 
+              план тренировок, спасибо тебе большое за твой подход❤️
+            </div>
+
+            <div class="review-person">
+              <div class="review-avatar">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21l7.78-7.55 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Алина Шевченко</strong>
+                <small>Персональные тренировки</small>
+              </div>
+            </div>
+
+            <button class="review-open-btn"
+                    type="button"
+                    data-review-image="review-personal.png"
+                    data-review-alt="Отзыв о персональных тренировках">
+              Открыть отзыв <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
+
+          <!-- ОТЗЫВ 2: СПЛИТ -->
+          <article class="review-card reveal">
+            <div class="stars"
+                style="font-size:10px; letter-spacing:1.5px; font-weight:800">
+              ✦ ОТЗЫВ КЛИЕНТА
+            </div>
+
+            <div class="review-placeholder">
+              Хочу оставить свой отзыв. О тренере Дарье. <br>
+              Дарья, очень ответственно подходит к своей работе, 
+              занимаюсь 7 месяцев получили с ней хороший результат - результат виден довольно хорошо. <br>
+              Тренер хорошо следит за техникой выполнения упражнения, 
+              помогает в случае надобности, находит контакт со всеми 
+              своими подопечными, советую данного тренера для своего успеха ❤️
+            </div>
+
+            <div class="review-person">
+              <div class="review-avatar">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21l7.78-7.55 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Милена Болдырева</strong>
+                <small>Сплит</small>
+              </div>
+            </div>
+
+            <button class="review-open-btn"
+                    type="button"
+                    data-review-image="review-split-1.png"
+                    data-review-alt="Отзыв о тренировках по сплиту">
+              Открыть отзыв <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
+
+          <!-- ОТЗЫВ 3: СПЛИТ -->
+          <article class="review-card reveal">
+            <div class="stars"
+                style="font-size:10px; letter-spacing:1.5px; font-weight:800">
+              ✦ ОТЗЫВ КЛИЕНТА
+            </div>
+
+            <div class="review-placeholder">
+              Ну что могу сказать я занимаюсь в зале чуть больше месяца, 
+              и уже вижу результат, вижу как моё тело меняется, что меня 
+              очень радует)	&#129325; <br>
+              Хочу сказать Дарья Зубак  самая лучшая! Она очень хороший 
+              тренер, она помогает, объясняет, показывает, хвалит, 
+              поддерживает. ❤️<br>
+              За что огромное спасибо! <br>
+              Тренируйтесь с Дарьей, и она поможет создать вам тело 
+              мечты!😍🤍
+            </div>
+
+            <div class="review-person">
+              <div class="review-avatar">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21l7.78-7.55 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Виктория Сергеевна</strong>
+                <small>Сплит</small>
+              </div>
+            </div>
+
+            <button class="review-open-btn"
+                    type="button"
+                    data-review-image="review-split-2.png"
+                    data-review-alt="Отзыв клиента о занятиях по сплиту">
+              Открыть отзыв <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
         </div>
       </div>
     </section>
@@ -417,25 +744,60 @@
     </section>
   </main>
 
-  <footer><div class="container footer-inner"><div>© <span id="year">2026</span> <strong>Зубак Дарья</strong> · Фитнес-тренер</div><div class="footer-links"><a href="#top">Наверх ↑</a><a href="#contacts">Контакты</a></div></div></footer>
+  <footer><div class="container footer-inner"><div>© <span id="year">2026</span> <strong>Зубак Дарья</strong> · Фитнес-тренер</div><div class="footer-links"><a href="#top">Наверх ↑</a></div></div></footer>
+
+  <!-- Всплывающее окно с оригинальным отзывом -->
+  <div class="review-modal"
+      id="reviewModal"
+      hidden>
+
+    <button class="review-modal-backdrop"
+            type="button"
+            data-close-review
+            aria-label="Закрыть отзыв">
+    </button>
+
+    <div class="review-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reviewModalTitle">
+
+      <div class="review-modal-head">
+        <h3 id="reviewModalTitle">Отзыв из ВКонтакте</h3>
+
+        <button class="review-modal-close"
+                type="button"
+                data-close-review
+                aria-label="Закрыть окно">
+          ×
+        </button>
+      </div>
+
+      <img class="review-modal-image"
+          id="reviewModalImage"
+          src=""
+          alt="Скриншот отзыва клиента">
+    </div>
+  </div>
 
   <script>
     // ПЕРЕД ПУБЛИКАЦИЕЙ: замените значения на реальные аккаунты и телефон Дарьи.
     // Instagram / Telegram / VK / MAX — без символа @. WhatsApp — международный номер только цифрами, например 79991234567.
     const socialAccounts = {
-      instagram: "YOUR_INSTAGRAM_USERNAME",
-      telegram: "YOUR_TELEGRAM_USERNAME",
-      vk: "YOUR_VK_USERNAME",
+      instagram: "daryazubak",
+      telegram: "wvizzz",
+      vk: "wvizzz",
       max: "YOUR_MAX_USERNAME",
-      whatsapp: "7XXXXXXXXXX"
+      whatsapp: "79144458086"
     };
     const inquiryMessage = "Здравствуйте, Дарья! Хочу записаться на тренировку. Подскажите, пожалуйста, свободные дни и время.";
     const encodedMessage = encodeURIComponent(inquiryMessage);
     const socialUrls = {
-      instagram: `https://ig.me/m/${socialAccounts.instagram}`,
+      instagram: `https://www.instagram.com/${socialAccounts.instagram}`,
       telegram: `https://t.me/${socialAccounts.telegram}?text=${encodedMessage}`,
-      vk: `https://vk.me/${socialAccounts.vk}`,
-      max: `https://max.ru/:share?text=${encodedMessage}`,
+      vk: `https://vk.me/${socialAccounts.vk}?text=${encodedMessage}`,
+      // max: `https://max.ru/:share?text=${encodedMessage}`,
+      max: `https://max.ru/u/f9LHodD0cOJhDvey3MBk1ltu7fP83sbMXX212PqThfdCLb2BrBHo48K11Zg`, 
       whatsapp: `https://wa.me/${socialAccounts.whatsapp}?text=${encodedMessage}`
     };
     document.querySelectorAll('[data-social]').forEach((link) => {
@@ -467,6 +829,52 @@
           note.textContent = 'Текст для обращения: ' + inquiryMessage;
         }
       });
+    });
+
+    // Открытие скриншотов отзывов
+    const reviewModal = document.getElementById('reviewModal');
+    const reviewModalImage = document.getElementById('reviewModalImage');
+    const reviewModalClose = reviewModal.querySelector('.review-modal-close');
+
+    let lastReviewButton = null;
+
+    document.querySelectorAll('[data-review-image]').forEach((button) => {
+      button.addEventListener('click', () => {
+        lastReviewButton = button;
+
+        reviewModalImage.src = button.dataset.reviewImage;
+        reviewModalImage.alt =
+          button.dataset.reviewAlt || 'Скриншот отзыва клиента';
+
+        reviewModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+
+        reviewModalClose.focus();
+      });
+    });
+
+    function closeReviewModal() {
+      if (reviewModal.hidden) return;
+
+      reviewModal.hidden = true;
+      reviewModalImage.removeAttribute('src');
+      document.body.style.overflow = '';
+
+      if (lastReviewButton) {
+        lastReviewButton.focus();
+      }
+    }
+
+    // Закрытие по кнопке и нажатию на фон
+    reviewModal.querySelectorAll('[data-close-review]').forEach((element) => {
+      element.addEventListener('click', closeReviewModal);
+    });
+
+    // Закрытие клавишей Escape
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !reviewModal.hidden) {
+        closeReviewModal();
+      }
     });
 
     // Плавное появление секций по мере прокрутки. Без библиотек и внешних запросов.
